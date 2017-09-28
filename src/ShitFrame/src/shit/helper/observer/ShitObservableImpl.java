@@ -63,8 +63,12 @@ public class ShitObservableImpl<T> implements ShitObservable<T> {
 	 *            订阅者
 	 */
 	private void doSubscribe(ShitSubscriber<T> subscriber) {
-		// 被订阅者主动取通知订阅者
-		this.onSubscriber.call(subscriber);
+		try {
+			// 被订阅者主动取通知订阅者
+			this.onSubscriber.call(subscriber);
+		} catch (Exception e) {
+			subscriber.onError(e);
+		}
 	}
 
 	@Override
@@ -101,6 +105,11 @@ public class ShitObservableImpl<T> implements ShitObservable<T> {
 					public void onComplete(T t) {
 						shitSubscriberFilter.filterComplete(t, subscriber);
 					}
+
+					@Override
+					public void onError(Throwable e) {
+						subscriber.onError(e);
+					}
 				});
 			}
 		});
@@ -136,6 +145,32 @@ public class ShitObservableImpl<T> implements ShitObservable<T> {
 						subscriber.onComplete(t);
 					}
 				});
+			}
+		});
+	}
+
+	@Override
+	public ShitObservableImpl<T> timer(int num, int type) {
+		return filter(new ShitSubscriberFilter<T, T>() {
+
+			@Override
+			public void filterNext(T t, ShitSubscriber<T> subscriber) {
+				try {
+					Thread.sleep(num * type);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				subscriber.onNext(t);
+			}
+
+			@Override
+			public void filterComplete(T t, ShitSubscriber<T> subscriber) {
+				try {
+					Thread.sleep(num * type);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				subscriber.onComplete(t);
 			}
 		});
 	}

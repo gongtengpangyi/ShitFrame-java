@@ -75,4 +75,11 @@ public class ShitSubscriberList<T> implements ShitSubscriber<T> {
 		}
 	}
 
+	@Override
+	public void onError(Throwable e) {
+		for (ShitSubscriber<T> subscriber : subscribers) {
+			subscriber.onError(e);
+		}
+	}
+
 }

@@ -21,9 +21,14 @@ public class ShitObservableHelper {
 	 * 设置使用的观察者类
 	 * 
 	 * @param observableClass
+	 * @throws ShitNotImplException
 	 */
-	public static void setObservableClass(Class<?> observableClass) {
-		clazz = observableClass;
+	public static void setObservableClass(Class<?> observableClass) throws ShitNotImplException {
+		if (ShitObservable.class.isAssignableFrom(observableClass)) {
+			clazz = observableClass;
+		} else {
+			throw new ShitNotImplException(observableClass.getName() + " is not implements from ShitObservable");
+		}
 	}
 
 	/**
@@ -47,8 +52,14 @@ public class ShitObservableHelper {
 		} else {
 			System.out.println("xxx");
 			Class<?>[] parameterTypes = { OnSubscriber.class };
-			return (ShitObservable<T>) ShitReflectHelper.invokeStaticMethodByName(clazz, "create", parameterTypes,
-					false, onSubscriber);
+			try {
+				return (ShitObservable<T>) ShitReflectHelper.invokeStaticMethodByName(clazz, "create", parameterTypes,
+						false, onSubscriber);
+			} catch (ShitReflectException e) {
+				System.out.println(clazz + "非Observerable实现类");
+				e.printStackTrace();
+			}
+			return ShitObservableImpl.create(onSubscriber);
 		}
 	}
 

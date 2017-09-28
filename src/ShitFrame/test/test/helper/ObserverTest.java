@@ -1,19 +1,31 @@
 package test.helper;
 
-import org.junit.Test;
-
 import shit.helper.ShitObservableHelper;
 import shit.helper.ShitSchedulerHelper;
+import shit.helper.observer.ShitObservable.OnSubscriber;
+import shit.helper.observer.ShitObservable.Timer;
 import shit.helper.observer.ShitObservableDataFilter;
 import shit.helper.observer.ShitSubscriber;
 import shit.helper.observer.ShitSubscriberList;
 
 public class ObserverTest {
 	
-	@Test
 	public void test1() {
-		String[] strs = {"next1", "next2"};
-		ShitObservableHelper.just(strs).filter(new ShitObservableDataFilter<String, Integer>() {
+		ShitObservableHelper.create(new OnSubscriber<String>() {
+
+			@Override
+			public void call(ShitSubscriber<String> subscriber) {
+				for (int i = 1; i > 0 ; i--) {
+					System.out.println(i);
+					subscriber.onNext("next" + 10/i);
+				}
+				subscriber.onComplete("complete");
+				
+			}
+		}).subscribeOn(ShitSchedulerHelper.immediate())
+		.observerOn(ShitSchedulerHelper.newThread())
+		.timer(1000, Timer.MILL_SECOND)
+		.filter(new ShitObservableDataFilter<String, Integer>() {
 
 			@Override
 			public Integer filterNext(String t) {
@@ -53,18 +65,31 @@ public class ObserverTest {
 				System.out.println("1" + t);
 				
 			}
+
+			@Override
+			public void onError(Throwable e) {
+				// TODO Auto-generated method stub
+				
+			}
 		}).add(new ShitSubscriber<Integer>() {
 
 			@Override
 			public void onNext(Integer t) {
 				System.out.println("2" + t);
-				
+				System.out.println("id:" + Thread.currentThread().getId());
+
 			}
 
 			@Override
 			public void onComplete(Integer t) {
 				System.out.println("2" + t);
-				
+				System.out.println("id:" + Thread.currentThread().getId());
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				e.printStackTrace();
+				System.out.println("xxxxxxxxxxxx" + Thread.currentThread().getId());
 			}
 		}));
 	}
@@ -72,10 +97,15 @@ public class ObserverTest {
 	
 	public static void main(String args[]) {
 		ObserverTest test = new ObserverTest();
-		test.test2();
+		test.test1();
 	}
 	
 	public void test2() {
+//		try {
+//			ShitObservableHelper.setObservableClass(ShitObservableDataFilter.class);
+//		} catch (ShitNotImplException e) {
+//			e.printStackTrace();
+//		}
 		ShitObservableHelper.just("next1", "next2")
 		.subscribeOn(ShitSchedulerHelper.immediate())
 		.observerOn(ShitSchedulerHelper.newThread())
@@ -111,6 +141,12 @@ public class ObserverTest {
 				System.out.println(t);
 				System.out.println("id:" + Thread.currentThread().getId());
 			
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}

@@ -26,4 +26,12 @@ public interface ShitSubscriber<T> {
 	 */
 	public void onComplete(T t);
 
+	/**
+	 * 操作出错
+	 * 
+	 * @param e
+	 *            错误信息
+	 */
+	public void onError(Throwable e);
+
 }

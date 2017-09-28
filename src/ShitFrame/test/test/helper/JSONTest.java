@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.sf.json.JSONObject;
 import shit.helper.ShitJSONHelper;
 import shit.helper.ShitReflectHelper;
 import shit.helper.json.ShitJSONArray;

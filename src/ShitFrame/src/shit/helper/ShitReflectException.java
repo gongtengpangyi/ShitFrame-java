@@ -2,7 +2,7 @@ package shit.helper;
 
 /**
  * 反射过程异常
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ShitReflectException extends Exception {

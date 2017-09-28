@@ -6,8 +6,8 @@ import shit.helper.json.ShitJSONObject;
 /**
  * 更据net.sf.json包来完成JSONObject
  * 
- * @author Fang 依赖jar包：commons-beanutils, commons-collections, commons-lang,
- *         commons-logging, json-lib-jdk, ezmorph
+ * @author GongTengPangYi 依赖jar包：commons-beanutils, commons-collections,
+ *         commons-lang, commons-logging, json-lib-jdk, ezmorph
  */
 public class ShitJSONObjectByNetSf extends ShitJSONObject<JSONObject> {
 	/*

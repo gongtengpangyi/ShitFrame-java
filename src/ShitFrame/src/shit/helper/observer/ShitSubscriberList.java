@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 订阅者集合类
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  * @param <T>
  *            数据类型

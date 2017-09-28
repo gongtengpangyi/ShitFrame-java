@@ -6,7 +6,7 @@ import shit.helper.scheduler.NewThreadScheduler;
 /**
  * 线程调度控制
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ShitSchedulerHelper {

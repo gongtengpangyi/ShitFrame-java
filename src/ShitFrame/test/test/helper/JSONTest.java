@@ -12,6 +12,15 @@ import shit.helper.ShitReflectHelper;
 import shit.helper.json.ShitJSONArray;
 import shit.helper.json.ShitJSONObject;
 
+/**
+* 创建时间：${date} ${time}
+* 项目名称：${project_name} 
+* @author GongTengPangYi
+* @version 1.0 
+* @since JDK 1.8.0
+* 文件名称：${file_name}  
+* 类说明：  
+**/
 public class JSONTest {
 	@Test
 	public void test1() {

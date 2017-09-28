@@ -3,7 +3,7 @@ package shit.helper.observer;
 /**
  * 订阅者接口
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  * @param <T>
  *            订阅的消息体

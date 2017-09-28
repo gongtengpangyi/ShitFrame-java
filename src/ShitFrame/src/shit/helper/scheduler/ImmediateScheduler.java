@@ -4,7 +4,7 @@ import shit.helper.ShitSchedulerHelper.Scheduler;
 
 /**
  * 当前线程执行
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ImmediateScheduler implements Scheduler {

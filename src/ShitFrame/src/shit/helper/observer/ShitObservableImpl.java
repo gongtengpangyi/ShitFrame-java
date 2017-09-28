@@ -6,7 +6,7 @@ import shit.helper.ShitSchedulerHelper.Scheduler;
 /**
  * 观察者
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  * @param <T>
  *            订阅的消息体

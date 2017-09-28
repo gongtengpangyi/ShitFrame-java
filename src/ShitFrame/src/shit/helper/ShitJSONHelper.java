@@ -9,7 +9,7 @@ import shit.helper.json.*;
 /**
  * JSON的工具类，便利处理JSON相关的内容
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ShitJSONHelper {

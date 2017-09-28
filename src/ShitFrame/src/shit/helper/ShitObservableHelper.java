@@ -8,7 +8,7 @@ import shit.helper.observer.ShitObservable.OnSubscriber;
 /**
  * 观察者工具类
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ShitObservableHelper {

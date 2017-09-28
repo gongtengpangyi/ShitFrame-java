@@ -6,15 +6,15 @@ import shit.helper.json.ShitJSONInit;
 /**
  * 更据net.sf.json包来完成驱动
  * 
- * @author Fang 依赖jar包：commons-beanutils, commons-collections, commons-lang,
- *         commons-logging, json-lib-jdk, ezmorph
+ * @author GongTengPangYi 依赖jar包：commons-beanutils, commons-collections,
+ *         commons-lang, commons-logging, json-lib-jdk, ezmorph
  */
-public class ShitJSONInitByNetSf implements ShitJSONInit<ShitJSONObjectByNetSf, ShitJSONArrayByNetSf>{
+public class ShitJSONInitByNetSf implements ShitJSONInit<ShitJSONObjectByNetSf, ShitJSONArrayByNetSf> {
 
 	static {
 		ShitJSONHelper.driver = new ShitJSONInitByNetSf();
 	}
-	
+
 	@Override
 	public ShitJSONObjectByNetSf initJSONObject() {
 		return new ShitJSONObjectByNetSf();
@@ -24,5 +24,5 @@ public class ShitJSONInitByNetSf implements ShitJSONInit<ShitJSONObjectByNetSf, 
 	public ShitJSONArrayByNetSf initJSONArray() {
 		return new ShitJSONArrayByNetSf();
 	}
-	
+
 }

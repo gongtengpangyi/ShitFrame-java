@@ -7,13 +7,16 @@ import java.io.IOException;
 
 /**
  * 一个简单的文件操作工具类
- * @author Fang 
+ * 
+ * @author GongTengPangYi
  *
  */
 public class ShitFileHelper {
 	/**
 	 * 读取文件
-	 * @param url 文件的地址
+	 * 
+	 * @param url
+	 *            文件的地址
 	 * @return 文件的字节
 	 */
 	public static byte[] read(String url) {
@@ -35,8 +38,11 @@ public class ShitFileHelper {
 
 	/**
 	 * 文件写入
-	 * @param buff 字节
-	 * @param url 储存路径
+	 * 
+	 * @param buff
+	 *            字节
+	 * @param url
+	 *            储存路径
 	 * @return
 	 */
 	public static boolean write(byte[] buff, String url) {
@@ -54,10 +60,12 @@ public class ShitFileHelper {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * base64解码
-	 * @param str base64字符串
+	 * 
+	 * @param str
+	 *            base64字符串
 	 * @return 字节流
 	 */
 	public static byte[] decode(String str) {
@@ -73,7 +81,9 @@ public class ShitFileHelper {
 
 	/**
 	 * base64编码
-	 * @param b 字节流
+	 * 
+	 * @param b
+	 *            字节流
 	 * @return base64字符串
 	 */
 	public static String encode(byte[] b) {

@@ -12,7 +12,7 @@ import shit.helper.stringcast.*;
 /**
  * 反射工具类
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class ShitReflectHelper {

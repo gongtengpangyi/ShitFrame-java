@@ -4,7 +4,7 @@ import shit.helper.ShitSchedulerHelper.Scheduler;
 
 /**
  * 新线程执行
- * @author Fang
+ * @author GongTengPangYi
  *
  */
 public class NewThreadScheduler implements Scheduler{

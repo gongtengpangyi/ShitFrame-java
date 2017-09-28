@@ -3,7 +3,7 @@ package shit.helper.observer;
 /**
  * 过滤订阅者操作的接口
  * 
- * @author Fang
+ * @author GongTengPangYi
  *
  * @param <T>
  *            过滤前消息体

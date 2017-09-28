@@ -2,7 +2,8 @@ package shit.helper;
 
 /**
  * 不是实现类异常
- * @author Fang
+ * 
+ * @author GongTengPangYi
  *
  */
 public class ShitNotImplException extends Exception {

@@ -5,7 +5,7 @@ import shit.helper.ShitJSONHelper;
 /**
  * JSON单元素类
  * 
- * @author ASUS
+ * @author GongTengPangYi
  *
  * @param <T>
  *            基本JSON单元类

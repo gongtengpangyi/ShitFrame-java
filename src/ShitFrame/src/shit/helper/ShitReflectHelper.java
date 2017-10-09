@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -265,6 +266,48 @@ public class ShitReflectHelper {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			throw new ShitReflectException("\nReflectHelper.getFieldByName：无访问权限" + ".\n");
+		}
+	}
+
+	/**
+	 * 查询所有字段
+	 * 
+	 * @param clazz
+	 *            类
+	 * @param includeSuper
+	 *            是否包含父类
+	 * @return 字段
+	 */
+	public static Field[] findFields(Class<?> clazz, boolean includeSuper) {
+		Field[] fields = clazz.getDeclaredFields();
+		if (includeSuper && clazz.getGenericSuperclass() != null) {
+			Field[] superFields = findFields(clazz.getSuperclass(), includeSuper);
+			Field[] result = Arrays.copyOf(fields, fields.length + superFields.length);
+			System.arraycopy(superFields, 0, result, fields.length, superFields.length);
+			return result;
+		} else {
+			return fields;
+		}
+	}
+
+	/**
+	 * 查询所有方法
+	 * 
+	 * @param clazz
+	 *            类
+	 * @param includeSuperIndex
+	 *            包含父类的级数(不包含父类则0)
+	 * @return 方法
+	 */
+	public static Method[] findMethods(Class<?> clazz, int includeSuperIndex) {
+		Method[] methods = clazz.getDeclaredMethods();
+		if (includeSuperIndex-- > 0 && clazz.getGenericSuperclass() != null) {
+			Method[] superMethods = findMethods(clazz.getSuperclass(), includeSuperIndex);
+			Method[] result = Arrays.copyOf(methods, methods.length + superMethods.length);
+			System.arraycopy(superMethods, 0, result, methods.length, superMethods.length);
+			return result;
+		} else {
+			return methods;
 		}
 	}
 

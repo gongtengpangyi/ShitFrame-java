@@ -1,5 +1,7 @@
 package test.helper;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Date;
 
 import org.junit.Test;
@@ -45,4 +47,17 @@ public class ReflectTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void test4() {
+		Field[] fields = ShitReflectHelper.findFields(TestModel.class, false);
+		for (Field field : fields) {
+			System.out.println(field.getName());
+		}
+		Method[] methods = ShitReflectHelper.findMethods(TestModel.class, 0);
+		for (Method method : methods) {
+			System.out.println(method.getName());
+		}
+	}
 }
+

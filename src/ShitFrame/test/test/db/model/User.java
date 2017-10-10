@@ -3,7 +3,7 @@ package test.db.model;
 import shit.db.table.ShitDBField;
 import shit.db.table.ShitDBTable;
 
-@ShitDBTable(name="USER", primaryKey="ID")
+@ShitDBTable(name="USER", primaryKey="id")
 public class User extends Entity {
 
 	/**

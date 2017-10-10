@@ -1,7 +1,7 @@
 package shit.db.execute;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -12,19 +12,19 @@ import java.util.List;
  * @param <T>
  *            操作返回
  */
-public abstract class ShitDBExecute<T> {
+public abstract class ShitDBExecuteSQL<T> {
 	/**
-	 * 用于数据库操作的prepareSmatement
+	 * 数据库连接
 	 */
-	protected PreparedStatement psmt;
+	protected Connection conn;
 
-	public ShitDBExecute(PreparedStatement psmt) {
+	public ShitDBExecuteSQL(Connection conn) {
 		super();
-		this.psmt = psmt;
+		this.conn = conn;
 	}
 
-	public void setPsmt(PreparedStatement psmt) {
-		this.psmt = psmt;
+	public void setConn(Connection conn) {
+		this.conn = conn;
 	}
 
 	/**

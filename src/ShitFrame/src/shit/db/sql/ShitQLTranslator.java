@@ -26,7 +26,22 @@ public class ShitQLTranslator {
 	/**
 	 * 占位符的正则
 	 */
-	private static final Pattern placeHolderPattern = Pattern.compile(":[a-z|A-Z]*");
+	private static final Pattern placeHolderPattern = Pattern.compile(":[&]*[a-z|A-Z|0-9]*");
+
+	/**
+	 * 条件语句的外键匹配正则
+	 */
+	private static final String foreignPatternWhereStr = ".[a-z|A-Z]*\\s*=\\s*[^\\s]*";
+
+	/**
+	 * 非条件语句的外键匹配正则
+	 */
+	private static final String foreignPatternOtherStr = ".[a-z|A-Z]*\\s*";
+
+	/**
+	 * 类名后缀匹配正则
+	 */
+	private static final String classNamePatternStr = ".[a-z|A-Z|.]*";
 
 	/**
 	 * 类名的正则表达式
@@ -61,7 +76,7 @@ public class ShitQLTranslator {
 	public ShitQLTranslator(String packageName, String shitQL, Map<String, Serializable> paramMap, ShitDBPager pager)
 			throws ShitDBTranslateException {
 		super();
-		classNamePattern = Pattern.compile(packageName + ".[a-z|A-Z|.]*");
+		classNamePattern = Pattern.compile(packageName + classNamePatternStr);
 		this.shitQL = shitQL;
 		this.paramMap = paramMap;
 		this.pager = pager;
@@ -206,30 +221,58 @@ public class ShitQLTranslator {
 	 * 翻译外键字段
 	 * 
 	 * @param field
+	 *            变量
 	 * @param fieldAnnotation
+	 *            数据库字段信息
 	 * @param dbFieldName
+	 *            数据库字段名
 	 * @param fieldName
+	 *            变量名
 	 * @throws ShitDBTranslateException
+	 *             翻译出错
 	 */
 	private void translateForeignKey(Field field, ShitDBField fieldAnnotation, String dbFieldName, String fieldName)
 			throws ShitDBTranslateException {
-		Pattern pat = Pattern.compile(fieldName + ".[a-z|A-Z]*\\s*=\\s*[^\\s]*");
+		/**
+		 * 匹配类似于 user.name=:userName这样的语句
+		 */
+		Pattern pat = Pattern.compile(fieldName + foreignPatternWhereStr);
 		Matcher mat = pat.matcher(sql);
-		String key = "";
 		if (mat.find()) {
-			 key = mat.group();
+			/**
+			 * 匹配成功
+			 */
+			String key = mat.group();
+			/**
+			 * 获取外键链接的类名和对应的数据表注解信息
+			 */
+			String foreignClassName = fieldAnnotation.foreignClass();
+			ShitDBTable foreignAnnotation = field.getType().getAnnotation(ShitDBTable.class);
+			if (foreignAnnotation == null) {
+				throw new ShitDBTranslateException("类:" + foreignClassName + "没有数据表注解");
+			}
+			/**
+			 * 拼接出子select语句
+			 */
+			String childShitQL = "select " + foreignAnnotation.primaryKey() + " from " + foreignClassName + " where ";
+			String childSql = new ShitQLTranslator(foreignClassName.substring(0, foreignClassName.lastIndexOf(".")),
+					childShitQL, null, null).getSql();
+			String replaceKey = dbFieldName + "=(" + childSql.substring(0, childSql.length() - 1)
+					+ key.substring(fieldName.length() + 1) + ")";
+			sql = sql.replace(key, replaceKey);
+			return;
 		}
-		String foreignClassName = fieldAnnotation.foreignClass();
-		ShitDBTable foreignAnnotation = field.getType().getAnnotation(ShitDBTable.class);
-		if (foreignAnnotation == null) {
-			throw new ShitDBTranslateException("类:" + foreignClassName + "没有数据表注解");
+		/**
+		 * 若上述拼接不出，说明不是在条件语句中，类似insert into xxx.xxx.Trade(user.id) values
+		 * (:userId);
+		 */
+		pat = Pattern.compile(fieldName + foreignPatternOtherStr);
+		mat = pat.matcher(sql);
+		if (mat.find()) {
+			String key = mat.group();
+			sql = sql.replace(key, fieldAnnotation.name());
+			return;
 		}
-		String childShitQL = "select " + foreignAnnotation.primaryKey() + " from " + foreignClassName + " where ";
-		String childSql = new ShitQLTranslator(foreignClassName.substring(0, foreignClassName.lastIndexOf(".")),
-				childShitQL, null, null).getSql();
-		String replaceKey = dbFieldName + "=(" + childSql.substring(0, childSql.length()-1)
-		+ key.substring(fieldName.length()+1) + ")";
-		sql = sql.replace(key, replaceKey);
 	}
 
 	/**

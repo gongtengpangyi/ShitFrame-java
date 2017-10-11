@@ -6,6 +6,11 @@ import shit.db.table.ShitDBTable;
 @ShitDBTable(name="USER", primaryKey="id")
 public class User extends Entity {
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + "]";
+	}
+
 	/**
 	 * 
 	 */

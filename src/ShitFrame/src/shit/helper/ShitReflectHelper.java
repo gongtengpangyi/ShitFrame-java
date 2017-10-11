@@ -408,6 +408,29 @@ public class ShitReflectHelper {
 	}
 
 	/**
+	 * 动态set
+	 * 
+	 * @param obj
+	 *            对象
+	 * @param fieldName
+	 *            字段名
+	 * @param value
+	 *            参数值
+	 * @param includeSuper
+	 *            是否包含父类
+	 * @throws ShitReflectException
+	 *             反射过程异常
+	 */
+	public static void setNotStrCastValue(Object obj, String fieldName, Object value, boolean includeSuper)
+			throws ShitReflectException {
+		String methodName = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+		Object[] values = { value };
+		Field field = findFieldByName(obj.getClass(), fieldName, includeSuper);
+		Class<?>[] types = { field.getType() };
+		invokeMethodByName(obj, obj.getClass(), methodName, types, includeSuper, values);
+	}
+
+	/**
 	 * 动态get
 	 * 
 	 * @param obj

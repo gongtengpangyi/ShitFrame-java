@@ -74,4 +74,10 @@ public class Trade extends Entity {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "Trade [name=" + name + ", discount=" + discount + ", cutTime=" + cutTime + ", price=" + price
+				+ ", count=" + count + ", user=" + user.toString() + "]";
+	}
+
 }

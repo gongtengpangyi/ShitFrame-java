@@ -27,11 +27,16 @@ public class ShitQLTranslator {
 	 * 占位符的正则
 	 */
 	private static final Pattern placeHolderPattern = Pattern.compile(":[&]*[a-z|A-Z|0-9]*");
+	
+	/**
+	 * 匹配引号内的内容
+	 */
+	private static final Pattern quotesPattern = Pattern.compile("\'[^\']*\'");
 
 	/**
 	 * 条件语句的外键匹配正则
 	 */
-	private static final String foreignPatternWhereStr = ".[a-z|A-Z]*\\s*=\\s*[^\\s]*";
+	private static final String foreignPatternWhereStr = ".[a-z|A-Z]*\\s*=\\s*[^\\s&^,]*";
 
 	/**
 	 * 非条件语句的外键匹配正则
@@ -137,10 +142,29 @@ public class ShitQLTranslator {
 	private void translate() throws ShitDBTranslateException {
 		this.paramList = new ArrayList<>();
 		this.sql = this.shitQL;
+		this.pretreatment();
 		this.translatePlaceHolder();
 		this.translateTable();
 		this.translatePager();
 		this.sql = this.sql + ";";
+	}
+	
+	/**
+	 * 对字符串做个预处理
+	 */
+	private void pretreatment() {
+		/**
+		 * 为了避免SQL语句字符值中的内容影响后续匹配，将其全部变化为&&开头的占位符
+		 */
+		Matcher mat = quotesPattern.matcher(sql);
+		int i = 0;
+		while (mat.find()) {
+			String key = "&&pre" + i++;
+			String value = mat.group();
+			sql = sql.replace(value, ":" + key);
+			value = value.substring(1, value.length()-1);
+			paramMap.put(key, value);
+		}
 	}
 
 	/**
@@ -233,16 +257,8 @@ public class ShitQLTranslator {
 	 */
 	private void translateForeignKey(Field field, ShitDBField fieldAnnotation, String dbFieldName, String fieldName)
 			throws ShitDBTranslateException {
-		/**
-		 * 匹配类似于 user.name=:userName这样的语句
-		 */
-		Pattern pat = Pattern.compile(fieldName + foreignPatternWhereStr);
-		Matcher mat = pat.matcher(sql);
-		if (mat.find()) {
-			/**
-			 * 匹配成功
-			 */
-			String key = mat.group();
+		String key = getForeignPatternWhereStr(fieldName);
+		if (key != null && !key.equals("")) {
 			/**
 			 * 获取外键链接的类名和对应的数据表注解信息
 			 */
@@ -266,13 +282,33 @@ public class ShitQLTranslator {
 		 * 若上述拼接不出，说明不是在条件语句中，类似insert into xxx.xxx.Trade(user.id) values
 		 * (:userId);
 		 */
-		pat = Pattern.compile(fieldName + foreignPatternOtherStr);
-		mat = pat.matcher(sql);
+		Pattern pat = Pattern.compile(fieldName + foreignPatternOtherStr);
+		Matcher mat = pat.matcher(sql);
 		if (mat.find()) {
-			String key = mat.group();
+			key = mat.group();
 			sql = sql.replace(key, fieldAnnotation.name());
 			return;
 		}
+	}
+
+	/**
+	 * 匹配类似于 user.name=:userName这样的语句
+	 * 
+	 * @param fieldName
+	 *            字段名，如上面说的user
+	 * @return 匹配结果
+	 */
+	private String getForeignPatternWhereStr(String fieldName) {
+		String key = "";
+		Pattern pat = Pattern.compile(fieldName + foreignPatternWhereStr);
+		Matcher mat = pat.matcher(sql);
+		if (mat.find()) {
+			/**
+			 * 匹配成功
+			 */
+			key = mat.group();
+		}
+		return key;
 	}
 
 	/**

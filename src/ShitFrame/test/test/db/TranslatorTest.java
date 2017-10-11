@@ -50,7 +50,7 @@ public class TranslatorTest {
 	@Test
 	public void test3() {
 		String shitQL = "select * from " + Trade.class.getName() + 
-				" o where o.id=1 and o.name=:name and o.user.id=1 order by o.id";		
+				" o where o.id=1 and o.name=:name and o.user.id=',' order by o.id";		
 		Map<String, Serializable> params = new HashMap<>(1);
 		params.put("name", "xxx");
 		ShitDBPager pager = new ShitDBPager(3, 2);

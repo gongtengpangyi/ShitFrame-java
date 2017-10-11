@@ -1,6 +1,5 @@
 package shit.db.connection;
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -8,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import shit.db.cfg.ShitDBC3P0DataSource;
 import shit.db.cfg.ShitDBDataSource;
 import shit.db.exception.ShitDBConfigureException;
 import shit.db.exception.ShitDBConnectException;
@@ -27,12 +27,7 @@ public class ShitDBConnectionC3P0 implements ShitDBConnection {
     }
     
     public void setDataSource(ShitDBDataSource shitDataSource) throws ShitDBConfigureException {
-    	try {
-			ds.setDriverClass("");
-		} catch (PropertyVetoException e) {
-			e.printStackTrace();
-			throw new ShitDBConfigureException(e);
-		}
+    	ds = ((ShitDBC3P0DataSource) shitDataSource).getComboPooledDataSource();
     }
    
 	@Override

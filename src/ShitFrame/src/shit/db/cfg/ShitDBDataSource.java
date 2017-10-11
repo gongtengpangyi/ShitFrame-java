@@ -1,5 +1,7 @@
 package shit.db.cfg;
 
+import java.util.Properties;
+
 /**
  * 数据库数据源
  * 
@@ -56,4 +58,14 @@ public class ShitDBDataSource {
 		this.password = password;
 	}
 
+	/**
+	 * 用属性集合的方式设置数据源
+	 * @param props
+	 */
+	public void setDataSourceByProperties(Properties props) {
+		setDriverClass(props.getProperty("driverClass"));
+		setJdbcUrl(props.getProperty("jdbcUrl"));
+		setUser(props.getProperty("user"));
+		setPassword(props.getProperty("password"));
+	}
 }

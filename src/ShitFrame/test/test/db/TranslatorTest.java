@@ -13,6 +13,7 @@ import shit.db.exception.ShitDBTranslateException;
 import shit.db.query.ShitDBPager;
 import shit.db.sql.ShitQLBuilder;
 import shit.db.sql.ShitQLDelete;
+import shit.db.sql.ShitQLSameModel;
 import shit.db.sql.ShitQLSave;
 import shit.db.sql.ShitQLTranslator;
 import shit.db.sql.ShitQLUpdate;
@@ -132,6 +133,29 @@ public class TranslatorTest {
 			ShitQLTranslator translator = new ShitQLTranslator("test.db.model", shitQL, params, null);
 			System.out.println(translator.getSql());
 			System.out.println(translator.getParamList());
+		} catch (ShitDBTranslateException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void test7() {
+		Trade trade = new Trade();
+		trade.setCount(1);
+		trade.setCutTime(new Date());
+		trade.setDiscount((float) 0.7);
+		trade.setName("xxxx");
+		User user = new User();
+		user.setId((long) 1);
+		trade.setUser(user);
+		try {
+			ShitQLBuilder sameModel = new ShitQLSameModel(trade).buildShitQL();
+			String shitQL = sameModel.getShitQL();
+			Map<String, Serializable> params = sameModel.getParamMap();
+			System.out.println(shitQL);
+			System.out.println(params);
+
 		} catch (ShitDBTranslateException e) {
 			e.printStackTrace();
 		}

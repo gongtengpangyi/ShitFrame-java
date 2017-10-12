@@ -3,6 +3,7 @@ package test.db;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +21,14 @@ import shit.db.exception.ShitDBExecuteException;
 import shit.db.exception.ShitDBResultException;
 import shit.db.exception.ShitDBTranslateException;
 import shit.db.exception.ShitDBWrongControlException;
+import shit.db.execute.ShitDBDaoDelete;
+import shit.db.execute.ShitDBDaoSave;
+import shit.db.execute.ShitDBDaoUpdate;
 import shit.db.query.ShitDBPager;
 import shit.db.query.ShitDBQuery;
 import shit.db.query.ShitDBQueryBasic;
 import test.db.model.Trade;
+import test.db.model.User;
 
 public class DaoTest {
 	public Connection getConn() {
@@ -72,5 +77,59 @@ public class DaoTest {
 		} catch (ShitDBConfigureException e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	@Test
+	public void testSave() {
+		Trade trade = new Trade();
+		trade.setCount(1);
+		trade.setCutTime(new Date());
+		trade.setDiscount((float) 0.7);
+		trade.setName("xxxx");
+		User user = new User();
+		user.setId((long) 1);
+		trade.setUser(user);
+		ShitDBDaoSave save = new ShitDBDaoSave(getConn(), trade);
+		try {
+			save.excute();
+		} catch (ShitDBExecuteException e) {
+			e.printStackTrace();
+		} catch (ShitDBTranslateException e) {
+			e.printStackTrace();
+		}
+		System.out.println(trade);
+		System.out.println(trade.getId());
+	}
+	
+	@Test
+	public void testUpdate() {
+		Trade trade = new Trade();
+		trade.setCount(3);
+		trade.setId((long) 36);
+		ShitDBDaoUpdate update = new ShitDBDaoUpdate(getConn(), trade);
+		try {
+			System.out.println(update.excute());
+			System.out.println(trade);
+			System.out.println(trade.getId());
+		} catch (ShitDBExecuteException e) {
+			e.printStackTrace();
+		} catch (ShitDBTranslateException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDelete() {
+		Trade trade = new Trade();
+		trade.setCount(3);
+		trade.setId((long) 36);
+		ShitDBDaoDelete update = new ShitDBDaoDelete(getConn(), trade);
+		try {
+			update.excute();
+		} catch (ShitDBExecuteException e) {
+			e.printStackTrace();
+		} catch (ShitDBTranslateException e) {
+			e.printStackTrace();
+		}
 	}
 }

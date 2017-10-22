@@ -8,10 +8,13 @@ import shit.db.exception.ShitDBTranslateException;
 
 /**
  * 处理数据库查询结果的接口
+ * 将数据库查询的结果转变为自己想要得到的结果
  * 
  * @author GongTengPangYi
  *
+ * @param <T> 声明想要得到结果的类型
  */
+
 public interface ShitDBResult<T> {
 
 	/**

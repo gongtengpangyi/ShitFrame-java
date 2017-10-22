@@ -11,7 +11,7 @@ import shit.db.query.ShitDBPager;
 import shit.db.sql.ShitQLTranslator;
 
 /**
- * 查询语句
+ * 查询语句的执行器，这个类比较简单，只是单纯调用了翻译器和执行器，对于处理结果是在query中再去调用结果处理器的
  * 
  * @author GongTengPangYi
  *
@@ -111,7 +111,11 @@ public class ShitDBDaoQuery extends ShitDBDao<ShitDBExecuteSQLQuery, ResultSet> 
 	@Override
 	public ResultSet excute() throws ShitDBExecuteException, ShitDBTranslateException {
 		setTranslator();
-		return execute.execute(translator.getSql(), translator.getParamList());
+		String sql = translator.getSql();
+		if (showSql) {
+			System.out.println(sql);
+		}
+		return execute.execute(sql, translator.getParamList());
 	}
 
 }

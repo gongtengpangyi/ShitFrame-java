@@ -54,7 +54,7 @@ public class DaoTest {
 	@Test
 	public void testQuery() {
 		String shitQL = "select * from " + Trade.class.getName() + 
-				" o where o.name=:name and o.user.id=1 order by o.id";		
+				" o where o.name=:name order by o.id";		
 		Map<String, Serializable> params = new HashMap<>(1);
 		params.put("name", "xxxx");
 		ShitDBPager pager = new ShitDBPager(1, 1);

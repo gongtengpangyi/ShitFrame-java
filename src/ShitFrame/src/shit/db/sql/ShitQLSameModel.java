@@ -11,7 +11,8 @@ import shit.helper.ShitReflectException;
 import shit.helper.ShitReflectHelper;
 
 /**
- * 生成查找参数几乎相同的model的where语句
+ * 生成查找参数几乎相同的model的where语句 在少数情况下我们会将判断的条件放在model对象中，而这里将model对象的内参值转化为条件语句
+ * 但是这里不支持浮点类型和时间
  * 
  * @author GongTengPangYi
  *

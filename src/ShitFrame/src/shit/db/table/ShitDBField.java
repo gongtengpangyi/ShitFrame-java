@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 数据库字段注解
+ * 数据库字段注解，用于注解model类的内部变量
  * @author GongTengPangYi
  *
  */

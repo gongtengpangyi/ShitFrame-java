@@ -10,7 +10,7 @@ import shit.helper.ShitReflectException;
 import shit.helper.ShitReflectHelper;
 
 /**
- * 删除
+ * 删除语句生成器，将model对象转化为delete语句 delete的条件可以根据shitQL来确定，如果shitQL不存在则根据model的主键确定
  * 
  * @author GongTengPangYi
  *

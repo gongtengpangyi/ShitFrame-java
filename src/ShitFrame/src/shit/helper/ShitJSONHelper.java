@@ -15,7 +15,7 @@ import shit.helper.json.*;
 public class ShitJSONHelper {
 
 	/**
-	 * 驱动
+	 * JSON单元驱动器
 	 */
 	public static ShitJSONInit<?, ?> driver;
 	

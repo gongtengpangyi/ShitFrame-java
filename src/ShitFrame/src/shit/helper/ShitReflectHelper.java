@@ -117,14 +117,14 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 反射调用方法的工具类
+	 * 根据Method对象调用方法
 	 * 
 	 * @param obj
-	 *            对象
+	 *            执行对象
 	 * @param method
-	 *            方法
+	 *            执行方法
 	 * @param params
-	 *            参数
+	 *            方法参数
 	 * @return 方法调用的返回值
 	 * @throws ShitReflectException
 	 *             反射异常
@@ -312,7 +312,7 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 映射对象方法
+	 * 根据方法名来反射执行对象方法
 	 * 
 	 * @param obj
 	 *            对象
@@ -346,7 +346,7 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 映射对象方法
+	 * 根据方法名来反射执行对象方法，不带class对象
 	 * 
 	 * @param obj
 	 *            对象
@@ -386,7 +386,7 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 动态set
+	 * 动态执行set方法，set的类型必须是String可转化的
 	 * 
 	 * @param obj
 	 *            对象
@@ -408,7 +408,7 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 动态set
+	 * 动态执行String不可转化的set方法
 	 * 
 	 * @param obj
 	 *            对象
@@ -431,7 +431,7 @@ public class ShitReflectHelper {
 	}
 
 	/**
-	 * 动态get
+	 * 动态执行get方法
 	 * 
 	 * @param obj
 	 *            对象

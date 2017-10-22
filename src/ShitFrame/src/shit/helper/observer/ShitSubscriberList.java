@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 订阅者集合类
+ * 订阅者集合类，用于当订阅者较多的时候使用
  * 
  * @author GongTengPangYi
  *

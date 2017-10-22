@@ -12,7 +12,9 @@ import shit.helper.ShitReflectException;
 import shit.helper.ShitReflectHelper;
 
 /**
- * 更新
+ * 更新语句的生成器，生成model对象对应的update语句，
+ * 其中update的值由model对象的变量确定，被update的数据的条件由shitQL语句和对应键值对决定
+ * 如果没有shitQL语句则默认用model对象的主键来更新
  * 
  * @author GongTengPangYi
  *

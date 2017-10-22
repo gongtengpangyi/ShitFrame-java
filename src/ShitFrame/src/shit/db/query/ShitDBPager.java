@@ -2,7 +2,7 @@ package shit.db.query;
 
 
 /**
- * 分页信息
+ * 分页信息，当需要分页查询的时候，需要把分页的信息存入这个类的对象中再用query进行查询
  * 
  * @author GongTengPangYi
  *

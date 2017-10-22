@@ -15,7 +15,7 @@ import shit.helper.ShitReflectException;
 import shit.helper.ShitReflectHelper;
 
 /**
- * 将查询结果变化为类
+ * 将查询结果变化为类,对于一般的查询操作适用
  * 
  * @author GongTengPangYi
  *

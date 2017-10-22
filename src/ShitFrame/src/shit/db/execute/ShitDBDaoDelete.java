@@ -8,7 +8,7 @@ import shit.db.exception.ShitDBTranslateException;
 import shit.db.sql.ShitQLDelete;
 
 /**
- * 删除
+ * 删除操作，其execute的返回值为null，目前还没有支持自定义shitQL条件语句的使用，存粹使用model主键
  * 
  * @author GongTengPangYi
  *

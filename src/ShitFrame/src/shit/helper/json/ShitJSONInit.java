@@ -1,7 +1,7 @@
 package shit.helper.json;
 
 /**
- * JSON初始化
+ * JSON初始化，该类用作选择JSON元素类的具体实现，即驱动器
  * 
  * @author GongTengPangYi
  *

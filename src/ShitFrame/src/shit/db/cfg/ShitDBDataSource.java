@@ -25,6 +25,19 @@ public class ShitDBDataSource {
 	 * 密码
 	 */
 	private String password;
+	
+	/**
+	 * 是否显示sql
+	 */
+	private boolean showSql;
+
+	public boolean isShowSql() {
+		return showSql;
+	}
+
+	public void setShowSql(boolean showSql) {
+		this.showSql = showSql;
+	}
 
 	public String getDriverClass() {
 		return driverClass;

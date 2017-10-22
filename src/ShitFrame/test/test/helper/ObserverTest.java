@@ -24,7 +24,7 @@ public class ObserverTest {
 			}
 		}).subscribeOn(ShitSchedulerHelper.immediate())
 		.observerOn(ShitSchedulerHelper.newThread())
-		.timer(1000, Timer.MILL_SECOND)
+		.timer(2000, Timer.MILL_SECOND)
 		.filter(new ShitObservableDataFilter<String, Integer>() {
 
 			@Override

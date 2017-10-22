@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class ShitFileHelper {
 	/**
-	 * 读取文件
+	 * 根据文件的URL来读取文件
 	 * 
 	 * @param url
 	 *            文件的地址
@@ -37,7 +37,7 @@ public class ShitFileHelper {
 	}
 
 	/**
-	 * 文件写入
+	 * 根据URL将字节写入文件
 	 * 
 	 * @param buff
 	 *            字节

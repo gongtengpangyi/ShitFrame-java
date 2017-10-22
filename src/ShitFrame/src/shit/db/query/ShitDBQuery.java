@@ -16,7 +16,7 @@ import shit.db.execute.ShitDBDaoQuery;
 import shit.db.table.ShitDBTable;
 
 /**
- * 执行查询过程
+ * 执行查询过程的基类，对于查询操作，session实质调用了这个类
  * 
  * @author GongTengPangYi
  *
@@ -51,6 +51,11 @@ public abstract class ShitDBQuery {
 	 * model类
 	 */
 	protected Class<?> modelClass;
+	
+	/**
+	 * 是否显示sql
+	 */
+	protected boolean showSql = false;
 
 	/**
 	 * 连接构造
@@ -192,6 +197,14 @@ public abstract class ShitDBQuery {
 	}
 
 	/**
+	 * 设置是否显示sql
+	 * @param showSql
+	 */
+	public void setShowSql(boolean showSql) {
+		this.showSql = showSql;
+	}
+
+	/**
 	 * 执行查询
 	 * 
 	 * @return 查询结果
@@ -229,6 +242,7 @@ public abstract class ShitDBQuery {
 		params = new HashMap<>(1);
 		params.put("id", id);
 		ShitDBResultModel result = initDBQuery();
+		executeQuery.setShowSql(showSql);
 		List<Serializable> list = result.analysis(executeQuery.excute());
 		if (list != null && list.size() > 0) {
 			return list.get(0);

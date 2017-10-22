@@ -9,7 +9,8 @@ import shit.db.sql.ShitQLBuilder;
 import shit.db.sql.ShitQLTranslator;
 
 /**
- * 非查询实现操作的抽象类
+ * 非查询实现操作的抽象类，返回值为处理后的model
+ * 
  * @author GongTengPangYi
  *
  */
@@ -26,7 +27,7 @@ public abstract class ShitDBDaoNotQuery extends ShitDBDao<ShitDBExecuteSQLNotQue
 	 * 数据库连接
 	 */
 	protected Connection conn;
-	
+
 	/**
 	 * 
 	 * @param conn
@@ -34,7 +35,7 @@ public abstract class ShitDBDaoNotQuery extends ShitDBDao<ShitDBExecuteSQLNotQue
 	public ShitDBDaoNotQuery(Connection conn) {
 		super();
 		this.conn = conn;
-		execute = new ShitDBExecuteSQLNotQuery(conn);	
+		execute = new ShitDBExecuteSQLNotQuery(conn);
 	}
 
 	/**
@@ -50,6 +51,7 @@ public abstract class ShitDBDaoNotQuery extends ShitDBDao<ShitDBExecuteSQLNotQue
 
 	/**
 	 * 设置操作的model
+	 * 
 	 * @param model
 	 */
 	public void setModel(Serializable model) {
@@ -67,22 +69,27 @@ public abstract class ShitDBDaoNotQuery extends ShitDBDao<ShitDBExecuteSQLNotQue
 	@Override
 	public Serializable excute() throws ShitDBExecuteException, ShitDBTranslateException {
 		setTranslator();
-		execute.execute(translator.getSql(), translator.getParamList());
+		String sql = translator.getSql();
+		if (showSql) {
+			System.out.println(sql);
+		}
+		execute.execute(sql, translator.getParamList());
 		return handleAfterExcute();
 	}
-	
+
 	/**
 	 * 初始化ShitQLBuilder
-	 * @throws ShitDBTranslateException 
+	 * 
+	 * @throws ShitDBTranslateException
 	 */
 	protected abstract void initShitQLBuilder() throws ShitDBTranslateException;
 
 	/**
 	 * 执行完毕操作后的处理
-	 * @throws ShitDBTranslateException 
-	 * @throws ShitDBExecuteException 
+	 * 
+	 * @throws ShitDBTranslateException
+	 * @throws ShitDBExecuteException
 	 */
 	protected abstract Serializable handleAfterExcute() throws ShitDBTranslateException, ShitDBExecuteException;
-	
-	
+
 }

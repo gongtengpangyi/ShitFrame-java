@@ -1,7 +1,7 @@
 package shit.helper.observer;
 
 /**
- * 过滤观察者数据的接口
+ * 过滤观察者数据的接口，用作订阅过程中发送数据的过滤操作
  * 
  * @author GongTengPangYi
  *

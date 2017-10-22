@@ -7,7 +7,7 @@ import shit.db.exception.ShitDBConfigureException;
 import shit.db.exception.ShitDBConnectException;
 
 /**
- * 数据库连接接口
+ * 数据库连接接口，用于完成数据库连接，并为其他操作提供获取数据库连接的接口
  * 
  * @author GongTengPangYi
  *

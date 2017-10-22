@@ -11,7 +11,7 @@ import shit.db.exception.ShitDBTranslateException;
 import shit.db.exception.ShitDBWrongControlException;
 
 /**
- * 基本数据库查询操作
+ * 基本数据库查询操作，纯粹使用数据库连接完成的查询操作
  * 
  * @author GongTengPangYi
  *
@@ -42,6 +42,7 @@ public class ShitDBQueryBasic extends ShitDBQuery {
 	@Override
 	public List<Serializable> query() throws ShitDBJDBCException, ShitDBWrongControlException, ShitDBConfigureException,
 			ShitDBTranslateException {
+		executeQuery.setShowSql(showSql);
 		ShitDBResultModel result = initDBQuery();
 		List<Serializable> list = result.analysis(executeQuery.excute());
 		return list;

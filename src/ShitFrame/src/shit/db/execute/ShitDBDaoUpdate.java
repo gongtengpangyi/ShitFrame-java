@@ -17,7 +17,14 @@ import shit.db.sql.ShitQLSameModel;
 import shit.db.sql.ShitQLUpdate;
 
 /**
- * 执行更新操作
+ * 执行更新操作，值得注意的是，规范上我们建议update的model需要是查询结果做过内参变化后再执行update的，
+ * 但是少数情况下我们可能只想修改极少数变量而用了新参数，对于这种情况我们不支持将传入参数转化为储存结果
+ * 储存结果的model我们将会在execute的返回值中给出： 
+ * Trade trade = 。。。。。 ;
+ * Trade trade2 = update.execute(trade); 
+ * sysout(trade) 这个值不是存完之后数据库里的 
+ * sysout(trade2) 这个值才是
+ * 
  * 
  * @author GongTengPangYi
  *
@@ -46,7 +53,7 @@ public class ShitDBDaoUpdate extends ShitDBDaoNotQuery {
 		ShitDBQuery query = new ShitDBQueryBasic(conn, clazz, shitQL, params);
 		try {
 			List<Serializable> list = query.query();
-			if (list != null && list.size()>0) {	
+			if (list != null && list.size() > 0) {
 				model = (Serializable) list.get(0);
 			}
 		} catch (ShitDBResultException e) {

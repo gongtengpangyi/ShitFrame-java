@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 数据表的注解
+ * 数据表的注解，用于注解model类
  * @author GongTengPangYi
  *
  */

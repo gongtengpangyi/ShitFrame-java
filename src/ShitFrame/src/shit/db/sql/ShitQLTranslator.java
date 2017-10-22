@@ -17,7 +17,7 @@ import shit.helper.ShitReflectHelper;
 /**
  * ShitQL翻译器，ShitQL的语法： 1)将SQL的表名替代为类名，如select * from
  * com.example.model.User.class 2)将SQL的字段名替代为变量名，且提供冒号形式占位符，并传入占位符键值对，如where
- * name = :name 3)分页查询由pager来控制
+ * name = :name 3)分页查询由pager来控制； 翻译器将shitQL语句翻译为对应的sql语句，同时将占位符键值对转化为list
  * 
  * @author GongTengPangYi
  *
@@ -27,7 +27,7 @@ public class ShitQLTranslator {
 	 * 占位符的正则
 	 */
 	private static final Pattern placeHolderPattern = Pattern.compile(":[&]*[a-z|A-Z|0-9]*");
-	
+
 	/**
 	 * 匹配引号内的内容
 	 */
@@ -148,7 +148,7 @@ public class ShitQLTranslator {
 		this.translatePager();
 		this.sql = this.sql + ";";
 	}
-	
+
 	/**
 	 * 对字符串做个预处理
 	 */
@@ -162,7 +162,7 @@ public class ShitQLTranslator {
 			String key = "&&pre" + i++;
 			String value = mat.group();
 			sql = sql.replace(value, ":" + key);
-			value = value.substring(1, value.length()-1);
+			value = value.substring(1, value.length() - 1);
 			paramMap.put(key, value);
 		}
 	}

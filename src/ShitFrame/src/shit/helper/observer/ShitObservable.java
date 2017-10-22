@@ -4,6 +4,7 @@ import shit.helper.ShitSchedulerHelper.Scheduler;
 
 /**
  * 观察者接口
+ * 这个类用来声明观察者，可以用此接口来联系观察者和订阅者
  * 
  * @author GongTengPangYi
  *
@@ -12,7 +13,7 @@ import shit.helper.ShitSchedulerHelper.Scheduler;
  */
 public interface ShitObservable<T> {
 	/**
-	 * 执行订阅活动
+	 * 执行订阅活动，即声明订阅者并触发被订阅者的发送过程
 	 * 
 	 * @param subscriber
 	 *            订阅者
@@ -20,7 +21,7 @@ public interface ShitObservable<T> {
 	public void subscribe(ShitSubscriber<T> subscriber);
 
 	/**
-	 * 过滤
+	 * 过滤，用作订阅过程发送的数据的过滤
 	 * 
 	 * @param filter
 	 *            数据过滤器
@@ -29,7 +30,7 @@ public interface ShitObservable<T> {
 	public <E> ShitObservable<E> filter(ShitObservableDataFilter<T, E> dataFilter);
 
 	/**
-	 * 过滤操作
+	 * 过滤操作，用于定义订阅过程中中间执行的操作
 	 * 
 	 * @param shitFilterSubscriber
 	 *            订阅者操作过滤器
@@ -56,7 +57,7 @@ public interface ShitObservable<T> {
 	public ShitObservable<T> observerOn(Scheduler scheduler);
 
 	/**
-	 * 延时
+	 * 延时过滤操作，延迟该操作之后的其他操作
 	 * 
 	 * @param num
 	 *            时长

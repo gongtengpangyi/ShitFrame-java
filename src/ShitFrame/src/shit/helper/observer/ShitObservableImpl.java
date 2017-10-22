@@ -4,7 +4,7 @@ import shit.helper.ShitSchedulerHelper;
 import shit.helper.ShitSchedulerHelper.Scheduler;
 
 /**
- * 观察者
+ * 观察者实现类
  * 
  * @author GongTengPangYi
  *

@@ -10,7 +10,7 @@ import shit.helper.ShitReflectException;
 import shit.helper.ShitReflectHelper;
 
 /**
- * Save操作的ShitQL生成器
+ * Save操作的ShitQL生成器， 将model对象转化为save语句，其中save的值由model对象来确定
  * 
  * @author GongTengPangYi
  *

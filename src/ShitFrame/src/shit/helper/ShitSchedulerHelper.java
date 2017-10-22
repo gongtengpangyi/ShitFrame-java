@@ -4,7 +4,7 @@ import shit.helper.scheduler.ImmediateScheduler;
 import shit.helper.scheduler.NewThreadScheduler;
 
 /**
- * 线程调度控制
+ * 线程调度控制，用于操作Runnable实现类具体的运行线程的控制
  * 
  * @author GongTengPangYi
  *

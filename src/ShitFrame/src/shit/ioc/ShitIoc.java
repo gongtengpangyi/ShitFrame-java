@@ -1,5 +1,9 @@
 package shit.ioc;
 
+import shit.helper.ShitReflectException;
+import shit.ioc.exception.ShitIocClassNotFoundException;
+import shit.ioc.exception.ShitIocConfigException;
+
 /**
  * IOC容器的使用类，可以在这个容器中获取IOC容器的内容，IOC容器的配置文件比较类似于Spring，
  * 其内部所有的元素均在配置文件中以bean标签定义，bean需要设置id和class，在获取时候根据id获取； 此外可以用set函数和构造函数来注入元素：
@@ -21,16 +25,18 @@ public abstract class ShitIoc {
 	 * 
 	 * @param xmlFilePath
 	 *            配置文件路径
+	 * @throws ShitIocConfigException 
 	 */
-	public ShitIoc(String xmlFilePath) {
+	public ShitIoc(String xmlFilePath) throws ShitIocConfigException {
 		this.xmlFilePath = xmlFilePath;
 		this.parseXml();
 	}
 
 	/**
 	 * 解析xml内容
+	 * @throws ShitIocConfigException 
 	 */
-	protected abstract void parseXml();
+	protected abstract void parseXml() throws ShitIocConfigException;
 
 	/**
 	 * 获取容器中的bean对应的对象
@@ -38,6 +44,8 @@ public abstract class ShitIoc {
 	 * @param id
 	 *            bean的id
 	 * @return 容器中的对象
+	 * @throws ShitReflectException 
+	 * @throws ShitIocClassNotFoundException 
 	 */
-	public abstract Object getBean(String id);
+	public abstract Object getBean(String id) throws ShitIocClassNotFoundException, ShitReflectException;
 }

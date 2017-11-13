@@ -26,9 +26,8 @@ public class Properties extends Document {
 	 * 基本构造器
 	 * 
 	 * @param belongBean
-	 * @param propertys
 	 */
-	public Properties(Bean belongBean, List<Property> propertys) {
+	public Properties(Bean belongBean) {
 		super();
 		this.belongBean = belongBean;
 		this.properties = new ArrayList<>();

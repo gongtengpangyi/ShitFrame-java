@@ -60,6 +60,19 @@ public class Bean extends Document{
 		this.properies = properies;
 	}
 
-
+	public void addConstructorArg(ConstructorArg constructorArg) {
+		if (constructor == null) {
+			constructor = new Constructor(this);
+		}
+		constructorArg.setConstructor(constructor);
+		constructor.addArg(constructorArg);
+	}
+	
+	public void addProperty(Property property) {
+		if (properies == null) {
+			properies = new Properties(this);
+		}
+		properies.addProperty(property);
+	}
 
 }

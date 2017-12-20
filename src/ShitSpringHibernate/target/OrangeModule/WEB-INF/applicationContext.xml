@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.frz.marryapp.console.biz.*Biz*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="jdbc:mysql://47.95.212.171:3306/marryapp?characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="wsn331331" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="initialPoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+	</bean>  -->
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/orangemodule" />
+		<property name="user" value="root" />
+		<property name="password" value="123456" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="initialPoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" />
+			<tx:method name="save*" />
+			<tx:method name="update*" />
+			<tx:method name="delete*" />
+			<tx:method name="import*" />
+			<tx:method name="reset*" />
+			<tx:method name="set*" />
+			<tx:method name="validate*" />
+			<tx:method name="move*" />
+			<tx:method name="execute*" />
+			<tx:method name="increase*" />
+			<tx:method name="decrease*" />
+			<tx:method name="bind*" />
+			<tx:method name="unbind*" />
+			<tx:method name="fetch*" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		lazy-init="false">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect </prop>
+				<prop key="hibernate.connection.release_mode">after_statement</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="connection.autoReconnect">true</prop>
+				<prop key="connection.autoReconnectForPools">true</prop>
+				<prop key="connection.is-connection-validation-required">true</prop>
+				<prop key="hibernate.c3p0.acquire_increment">1</prop>
+				<prop key="hibernate.c3p0.idle_test_period">0</prop>
+				<prop key="hibernate.c3p0.timeout">0</prop>
+				<prop key="hibernate.c3p0.validate">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+					
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="toolSpring" class="shit.toolspring.ToolSpring"></bean>
+	
+	<import resource="controller-beans.xml" />		
+	<import resource="action-beans.xml" />		
+</beans>

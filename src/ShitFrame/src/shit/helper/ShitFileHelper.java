@@ -68,6 +68,7 @@ public class ShitFileHelper {
 	 *            base64字符串
 	 * @return 字节流
 	 */
+	@SuppressWarnings("restriction")
 	public static byte[] decode(String str) {
 		byte[] bt = null;
 		try {
@@ -86,6 +87,7 @@ public class ShitFileHelper {
 	 *            字节流
 	 * @return base64字符串
 	 */
+	@SuppressWarnings("restriction")
 	public static String encode(byte[] b) {
 		if (b == null) {
 			return null;

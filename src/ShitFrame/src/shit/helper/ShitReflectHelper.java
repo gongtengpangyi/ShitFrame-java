@@ -27,10 +27,10 @@ public class ShitReflectHelper {
 	 * 初始化这个键值对
 	 */
 	static {
-		stringCastTypeMap.put(java.lang.Boolean.class, new ShitStringCastBoolean());
-		stringCastTypeMap.put(java.lang.Long.class, new ShitStringCastLong());
-		stringCastTypeMap.put(java.lang.Integer.class, new ShitStringCastInteger());
-		stringCastTypeMap.put(java.lang.Float.class, new ShitStringCastFloat());
+		stringCastTypeMap.put(Boolean.class, new ShitStringCastBoolean());
+		stringCastTypeMap.put(Long.class, new ShitStringCastLong());
+		stringCastTypeMap.put(Integer.class, new ShitStringCastInteger());
+		stringCastTypeMap.put(Float.class, new ShitStringCastFloat());
 		stringCastTypeMap.put(java.util.Date.class,
 				ShitStringCastDate.newInstance(ShitStringCastDate.defaultDateFormatStr));
 	}
@@ -134,10 +134,10 @@ public class ShitReflectHelper {
 			return method.invoke(obj, params);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-			throw new ShitReflectException("\nReflectHelper.invokeMethod：参数不对" + ".\n");
+			throw new ShitReflectException("\nReflectHelper.invokeMethod：无访问权限" + ".\n");
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			throw new ShitReflectException("\nReflectHelper.invokeMethod：无访问权限" + ".\n");
+			throw new ShitReflectException("\nReflectHelper.invokeMethod：参数不对" + ".\n");
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 			throw new ShitReflectException("\nReflectHelper.invokeMethod：执行目标不对" + ".\n");
@@ -207,9 +207,6 @@ public class ShitReflectHelper {
 
 	/**
 	 * 更据名字来反射执行静态方法
-	 * 
-	 * @param obj
-	 *            执行的对象
 	 * @param clazz
 	 *            类
 	 * @param name
@@ -343,6 +340,20 @@ public class ShitReflectHelper {
 			params[i] = stringCast != null ? stringCast.cast(values[i]) : values[i];
 		}
 		return invokeMethodByName(obj, clazz, methodName, parameterTypes, includeSuper, params);
+	}
+
+	/**
+	 * 强制转化String
+	 * @param value
+	 * @param type
+	 * @return
+	 */
+	public static Object stringCast(String value, Class<?> type) {
+		if (type.equals(String.class)) {
+			return value;
+		}
+		ShitStringCast stringCast = stringCastTypeMap.get(type);
+		return stringCast != null ? stringCast.cast(value) : value;
 	}
 
 	/**

@@ -66,7 +66,7 @@ public interface ShitDBSession {
 	 * @throws ShitDBWrongControlException
 	 * @throws ShitDBJDBCException
 	 */
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL)
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL)
 			throws ShitDBJDBCException, ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException;
 
 	/**
@@ -84,7 +84,7 @@ public interface ShitDBSession {
 	 * @throws ShitDBWrongControlException
 	 * @throws ShitDBJDBCException
 	 */
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL,
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL,
 			Map<String, Serializable> params) throws ShitDBJDBCException, ShitDBWrongControlException,
 					ShitDBConfigureException, ShitDBTranslateException;
 
@@ -103,7 +103,7 @@ public interface ShitDBSession {
 	 * @throws ShitDBWrongControlException
 	 * @throws ShitDBJDBCException
 	 */
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL, ShitDBPager pager)
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL, ShitDBPager pager)
 			throws ShitDBJDBCException, ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException;
 
 	/**
@@ -119,7 +119,7 @@ public interface ShitDBSession {
 	 *            分页信息
 	 * @return 查询结果
 	 */
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL,
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL,
 			Map<String, Serializable> params, ShitDBPager pager) throws ShitDBJDBCException,
 					ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException;
 
@@ -144,7 +144,7 @@ public interface ShitDBSession {
 	 * @throws ShitDBWrongControlException
 	 * @throws ShitDBJDBCException
 	 */
-	public List<Serializable> findAll(Class<? extends Serializable> clazz)
+	public List<? extends Serializable> findAll(Class<? extends Serializable> clazz)
 			throws ShitDBJDBCException, ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException;
 
 	/**

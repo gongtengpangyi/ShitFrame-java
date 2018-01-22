@@ -30,7 +30,7 @@ public class ShitDBSessionJDBC extends ShitDBSessionBasic {
 	}
 
 	@Override
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL,
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL,
 			Map<String, Serializable> params, ShitDBPager pager) throws ShitDBJDBCException,
 					ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException {
 		ShitDBQuery query = new ShitDBQueryBasic(conn, clazz, shitQL, pager, params);

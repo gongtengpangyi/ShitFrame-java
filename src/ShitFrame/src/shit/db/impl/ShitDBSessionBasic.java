@@ -96,27 +96,27 @@ public abstract class ShitDBSessionBasic implements ShitDBSession {
 	}
 
 	@Override
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL) throws ShitDBJDBCException,
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL) throws ShitDBJDBCException,
 			ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException {
 		return query(clazz, shitQL, null, null);
 	}
 
 	@Override
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL,
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL,
 			Map<String, Serializable> params) throws ShitDBJDBCException, ShitDBWrongControlException,
 					ShitDBConfigureException, ShitDBTranslateException {
 		return query(clazz, shitQL, params, null);
 	}
 
 	@Override
-	public List<Serializable> query(Class<? extends Serializable> clazz, String shitQL, ShitDBPager pager)
+	public List<? extends Serializable> query(Class<? extends Serializable> clazz, String shitQL, ShitDBPager pager)
 			throws ShitDBJDBCException, ShitDBWrongControlException, ShitDBConfigureException,
 			ShitDBTranslateException {
 		return query(clazz, shitQL, null, pager);
 	}
 
 	@Override
-	public List<Serializable> findAll(Class<? extends Serializable> clazz) throws ShitDBJDBCException,
+	public List<? extends Serializable> findAll(Class<? extends Serializable> clazz) throws ShitDBJDBCException,
 			ShitDBWrongControlException, ShitDBConfigureException, ShitDBTranslateException {
 		String shitQL = "select * from " + clazz.getName();
 		return query(clazz, shitQL, null, null);
@@ -133,7 +133,7 @@ public abstract class ShitDBSessionBasic implements ShitDBSession {
 		String shitQL = "select * from " + clazz.getName() + " o where o." + primaryKey + "=:" + primaryKey;
 		Map<String, Serializable> params = new HashMap<>(1);
 		params.put(primaryKey, id);
-		List<Serializable> list;
+		List<? extends Serializable> list;
 		try {
 			list = query(clazz, shitQL, params);
 			if (list != null && list.size() > 0) {

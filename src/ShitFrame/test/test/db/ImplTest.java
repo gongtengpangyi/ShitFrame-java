@@ -21,6 +21,7 @@ import shit.db.exception.ShitDBTranslateException;
 import shit.db.exception.ShitDBWrongControlException;
 import shit.db.impl.ShitDBSessionJDBCFactory;
 import shit.db.query.ShitDBPager;
+import shit.helper.security.MD5Util;
 import test.db.model.Trade;
 import test.db.model.User;
 
@@ -28,9 +29,9 @@ public class ImplTest {
 	public ShitDBSession getSession() {
 		Properties props = new Properties();
 		props.setProperty("driverClass", "com.mysql.jdbc.Driver");
-		props.setProperty("jdbcUrl", "jdbc:mysql://localhost:3306/superMap");
+		props.setProperty("jdbcUrl", "jdbc:mysql://47.95.212.171:3306/marryapp?characterEncoding=UTF-8");
 		props.setProperty("user", "root");
-		props.setProperty("password", "wjfrz");
+		props.setProperty("password", "wsn331331");
 		ShitDBDataSource dataSource = new ShitDBC3P0DataSource();
 		dataSource.setDataSourceByProperties(props);
 		dataSource.setShowSql(true);
@@ -48,16 +49,20 @@ public class ImplTest {
 	
 	@Test
 	public void testQuery() {
-		String shitQL = "select * from " + Trade.class.getName() + 
+		String shitQL = "select * from " + User.class.getName() + 
 				" o where o.id=:id order by o.id";		
 		Map<String, Serializable> params = new HashMap<>(1);
-		params.put("id", 15);
+		params.put("id", 1);
 		ShitDBPager pager = new ShitDBPager(1, 1);
 		ShitDBSession session = getSession();
 		try {
-			List<Serializable> list = session.query(Trade.class, shitQL, params, pager);
-			for (Serializable model : list) {
+			@SuppressWarnings("unchecked")
+			List<User> list = (List<User>) session.findAll(User.class);
+			for (User model : list) {
 				System.out.println(model);
+				(model).setPassword(MD5Util.getMD5(model.getPassword()));
+				session.update(model);
+				
 			}
 		} catch (ShitDBJDBCException e) {
 			// TODO Auto-generated catch block
